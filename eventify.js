@@ -1,47 +1,49 @@
 var express = require('express');
+var bodyParser = require('body-parser');
+
+var db = require('./db.js');
 
 var app = express();
 
+app.use(bodyParser());
 app.use(express.static(__dirname + '/public'));
+
 app.set('views', __dirname + '/public/views');
-app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
+
+app.engine('html', require('ejs').renderFile);
+
+// Routes
 
 app.get('/', function(req, res) {
     res.render('index.html'); 
 });
 
 app.get('/events/all', function(req, res) {
-    var events = [
-        {
-            "img":"http://lorempixel.com/300/200/nature",
-            "name": "Bootstrap meetup!",
-            "address": "19239 Lowell Dr, Cupertino, CA",
-            "date": "SAT, AUG 10 2015, 9 AM"
-        },
-        {
-            "img":"http://lorempixel.com/300/200/city",
-            "name": "Bootstrap meetup!",
-            "address": "19239 Lowell Dr, Cupertino, CA",
-            "date": "SAT, AUG 10 2015, 9 AM"
-        },
-        {
-            "img":"http://lorempixel.com/300/200/abstract",
-            "name": "Bootstrap meetup!",
-            "address": "19239 Lowell Dr, Cupertino, CA",
-            "date": "SAT, AUG 10 2015, 9 AM"
-        },
-        {
-            "img":"http://lorempixel.com/300/200/sports",
-            "name": "Bootstrap meetup!",
-            "address": "19239 Lowell Dr, Cupertino, CA",
-            "date": "SAT, AUG 10 2015, 9 AM"
-        },
-    ];
     res.setHeader('Content-Type', 'application/json');
-    res.send(events);
+    db.findEvents({}, function(err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    })
 });
 
-var server = app.listen(3000, function() {
-    console.log('Listening...');
+app.post('/events/create', function(req, res) {
+    var _event = req.body;
+    db.insertEvents(_event, function(err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.sendStatus(200);
+        }
+    })
 });
+
+db.connect(function() {
+    var server = app.listen(3000, function() {
+        console.log('Listening...');
+    });
+});
+
