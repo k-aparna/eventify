@@ -103,9 +103,12 @@ app.post('/register', function(req, res) {
 
 app.post('/login', function(req, res) {
     var loginInfo = req.body;
+    console.log(req.body);
     db.findUsers({username: loginInfo.username, password: loginInfo.password}, function(err, result) {
         if (err) {
             console.log("Failed to find the requested user. " + loginInfo + ", error: " + err);
+            res.status(401).send();
+        } else if (!result.length) {
             res.status(401).send();
         } else {
             res.status(200).send();
