@@ -1,0 +1,27 @@
+{
+  "name": "eventify",
+  "version": "0.0.1",
+  "description": "Web Front End project",
+  "main": "eventify.js",
+  "scripts": {
+    "test": "node eventify.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kart/eventify.git"
+  },
+  "author": "The Gals",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kart/eventify/issues"
+  },
+  "homepage": "https://github.com/kart/eventify",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "ejs": "^2.3.3",
+    "express": "^4.13.3",
+    "mongodb": "^2.0.40",
+    "url": "^0.10.3",
+    "uuid": "^2.0.1"
+  }
+}

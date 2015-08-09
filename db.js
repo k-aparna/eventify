@@ -6,39 +6,25 @@ var mongoClient = mongodb.MongoClient;
 var dbUrl = 'mongodb://localhost:27017/eventify';
 
 var dbHandle = {};
+
+// var sampleUser = {
+// 	username: <user-name>,	// primary-index
+// 	password: <password>,
+// 	email: <email-id>,
+// 	events: [eventId...]
+// }
+
+// var sampleEvent = {
+// 	eventId: 1,	// primary-index
+// 	img: <img-url>,
+// 	name: eventName,
+// 	address: eventAddress,
+// 	date: eventDate
+// }
+
 var eventsCollection = {};
 var usersCollection = {};
-
-var testData = [
-        {
-            "eventId":"1",
-            "img":"http://lorempixel.com/300/200/nature",
-            "name": "Bootstrap meetup!",
-            "address": "19239 Lowell Dr, Cupertino, CA",
-            "date": "SAT, AUG 10 2015, 9 AM"
-        },
-        {
-            "eventId":"2",
-            "img":"http://lorempixel.com/300/200/city",
-            "name": "Bootstrap meetup!",
-            "address": "19239 Lowell Dr, Cupertino, CA",
-            "date": "SAT, AUG 10 2015, 9 AM"
-        },
-        {
-            "eventId":"3",
-            "img":"http://lorempixel.com/300/200/abstract",
-            "name": "Bootstrap meetup!",
-            "address": "19239 Lowell Dr, Cupertino, CA",
-            "date": "SAT, AUG 10 2015, 9 AM"
-        },
-        {
-            "eventId":"4",
-            "img":"http://lorempixel.com/300/200/sports",
-            "name": "Bootstrap meetup!",
-            "address": "19239 Lowell Dr, Cupertino, CA",
-            "date": "SAT, AUG 10 2015, 9 AM"
-        },
-    ];
+var attendenceCollection = {};
 
 var setupDb = function(db) {
 	eventsCollection = db.collection('events');
@@ -49,20 +35,13 @@ var setupDb = function(db) {
 	// create an index on username and add an unique constraint to avoid duplicates.
 	usersCollection.createIndex({username: 1}, {unique: true});
 
+	attendenceCollection = db.collection('attendence');
+	attendenceCollection.createIndex({username: 1}, {unique: true});
+
 	// set the global db handle.
 	dbHandle = db;
 
-	// insert test data.
-	insertEvents(testData, function(err, result) {
-		if (err && err.code == 11000) {
-			console.log("Ignoring duplicates.");
-		} else if (err) {
-			console.log("Failed to insert dummy events in the 'events' collection. Error: ", err);
-			process.exit();	
-		}
-		// insert went fine.
-		console.log("Database successfully setup!");
-	});
+	console.log("Database successfully setup!");
 }
 
 exports.connect = function(doneFn) {
@@ -84,6 +63,26 @@ exports.findEvents = function(query, doneFn) {
 	});
 }
 
-var insertEvents = exports.insertEvents = function(obj, doneFn) {
+exports.findUsers = function(query, doneFn) {
+	usersCollection.find(query).toArray(function(err, result) {
+		doneFn(err, result);
+	});
+}
+
+exports.findAttendence = function(query, doneFn) {
+	attendenceCollection.find(query).toArray(function(err, result) {
+		doneFn(err, result);
+	});
+}
+
+exports.insertEvents = function(obj, doneFn) {
 	eventsCollection.insert(obj, doneFn);
+}
+
+exports.insertUsers = function(obj, doneFn) {
+	usersCollection.insert(obj, doneFn);
+}
+
+exports.insertAttendence = function(obj, doneFn) {
+	attendenceCollection.insert(obj, doneFn);
 }

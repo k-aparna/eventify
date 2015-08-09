@@ -42,7 +42,7 @@ function addEvents(events) {
 }
 
 $(document).ready(function() {
-    $.ajax('/events/all').done(function(data) {
+    $.ajax('/events').done(function(data) {
         addEvents(data);
     });
 });

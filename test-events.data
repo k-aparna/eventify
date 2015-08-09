@@ -1,0 +1,30 @@
+[
+        {
+            "eventId":"1",
+            "img":"http://lorempixel.com/300/200/nature",
+            "name": "Bootstrap meetup!",
+            "address": "19239 Lowell Dr, Cupertino, CA",
+            "date": "SAT, AUG 10 2015, 9 AM"
+        },
+        {
+            "eventId":"2",
+            "img":"http://lorempixel.com/300/200/city",
+            "name": "NodeJS meetup!",
+            "address": "19239 Lowell Dr, Cupertino, CA",
+            "date": "SUN, AUG 11 2015, 9 AM"
+        },
+        {
+            "eventId":"3",
+            "img":"http://lorempixel.com/300/200/abstract",
+            "name": "Bootstrap meetup!",
+            "address": "19239 Lowell Dr, Cupertino, CA",
+            "date": "MON, AUG 12 2015, 9 AM"
+        },
+        {
+            "eventId":"4",
+            "img":"http://lorempixel.com/300/200/sports",
+            "name": "Bootstrap meetup!",
+            "address": "19239 Lowell Dr, Cupertino, CA",
+            "date": "TUE, AUG 13 2015, 9 AM"
+        }
+]
