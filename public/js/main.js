@@ -45,4 +45,31 @@ $(document).ready(function() {
     $.ajax('/events').done(function(data) {
         addEvents(data);
     });
+
+    $('#signInForm').submit(function(e) {
+        e.preventDefault();
+
+        var formData = {
+            'username': $('#username').val(),
+            'password': $('#password').val()
+        }
+
+        $.ajax({
+            beforeSend: function(xhrObj) {
+                xhrObj.setRequestHeader("Content-Type","application/json");
+            },
+            type: 'POST',
+            url: '/login',
+            data: JSON.stringify(formData),
+            dataType: 'json',
+            success: function(data) {
+                $('#navbarForm').removeClass('open');
+                $('#registerBtn').hide();
+                $('#signInBtn').hide();
+            },
+            error: function(data) {
+                console.log("failed!");
+            }
+        });
+    });
 });

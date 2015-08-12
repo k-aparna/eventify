@@ -107,11 +107,11 @@ app.post('/login', function(req, res) {
     db.findUsers({username: loginInfo.username, password: loginInfo.password}, function(err, result) {
         if (err) {
             console.log("Failed to find the requested user. " + loginInfo + ", error: " + err);
-            res.status(401).send();
+            res.status(401).send({success: false});
         } else if (!result.length) {
-            res.status(401).send();
+            res.status(401).send({success: false});
         } else {
-            res.status(200).send();
+            res.status(200).send({success: true});
         }
     });
 });

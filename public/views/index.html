@@ -51,6 +51,23 @@
         margin-left: 25px;
         margin-bottom: 10px;
       }
+      #createEventBtn {
+        position: fixed;
+        right: 0;
+        top: 85%;
+        margin-right: 20px;
+        border-radius: 100%;
+        background-color: #DB4437;
+        color: white;
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+      }
+
+      #createEventBtn:focus,#createEventBtn:active {
+        outline: none !important;
+      }
+
     </style>
 	</head>
 	<body>
@@ -67,7 +84,7 @@
             </a>
           </div>
 
-          <div class="pull-right">
+          <div id="navbarForm" class="pull-right">
             <!-- Event search form -->
             <form class="form-inline pull-left navbar-form" role="form">
                   <div class="form-group">
@@ -77,20 +94,19 @@
             </form>
 
             <!-- Register and Sign-In buttons -->
-            <a href="#" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#myModal">
+            <a href="#" id="registerBtn" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#myModal">
                   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                   Register
             </a>
-            <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown"
+            <a href="#" id="signInBtn" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
                   <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                   Sign In
                   <span class="caret"></span>
             </a>
-
             <!-- Sign-In dropdown form -->
             <div class="dropdown-menu" style="padding: 10px; width: 300px">
-              <form>
+              <form id="signInForm">
                 <div class="form-group">
                   <input id="username" class="form-control input-md" type="text" placeholder="Username"/>
                 </div>
@@ -102,7 +118,28 @@
             </div>
           </div>
 
-
+          <div class="modal fade" id="createEventModal" tabIndex="-1" role="dialog" aria-labelledby="createEventModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                <div class="modal-header"><h3> Create an Event </h3> </div>
+                <div class="modal-body">
+                  <!-- actual create event form -->
+                    <form class="form">
+                        <div class="form-group">
+                            <input id="eventName" class="form-control" type="text" placeholder="Event name" />
+                        </div>
+                        <div class="form-group">
+                            <input id="eventDate" class="form-control" type="text" placeholder="DAY, MON DD YYYY" />
+                        </div>
+                        <div class="form-group">
+                            <input id="eventAddress" class="form-control" type="text" placeholder="Address" />
+                        </div>
+                        <input class="btn btn-primary" type="submit" name="createEvent" value="Create Event" />
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- Register modal form -->
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-sm" role="document">
@@ -112,13 +149,13 @@
                       <!-- Actual registration form -->
                       <form class="form">
                           <div class="form-group">
-                              <input id="username" class="form-control" type="text" placeholder="Username" />
+                              <input id="ruser" class="form-control" type="text" placeholder="Username" />
                           </div>
                           <div class="form-group">
-                              <input id="email" class="form-control" type="text" placeholder="Email" />
+                              <input id="remail" class="form-control" type="text" placeholder="Email" />
                           </div>
                           <div class="form-group">
-                              <input id="password" class="form-control" type="password" placeholder="Password" />
+                              <input id="rpassword" class="form-control" type="password" placeholder="Password" />
                           </div>
                           <div class="form-group">
                               <input id="rptpassword" class="form-control" type="password"
@@ -166,7 +203,9 @@
           </div>
         </div>
       </div> <!-- row ends here -->
-
     </div> <!-- container ends here -->
+    <button id="createEventBtn" class="btn btn-default btn-lg" data-toggle="modal" data-target="#createEventModal">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
 	</body>
 </html>
