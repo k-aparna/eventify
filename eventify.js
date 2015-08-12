@@ -42,24 +42,6 @@ app.get('/attendence', function(req, res) {
         }
     })
 });
-/*
-app.get('/users/', function(req, res) {
-    var url_parts = url.parse(req.url, true);
-    var query = url_parts.query;
-    if (Object.keys(query).length) {
-        var username = query.name;
-        db.findUsers({"username": username}, function(err, result) {
-            if (!err) {
-                res.send(JSON.stringify(result));
-            } else {
-                res.send(err);
-            }
-        });
-    } else {
-        res.sendStatus({});
-    }
-});
-*/
 
 app.post('/attend', function(req, res) {
     var attendence = req.body;
@@ -73,6 +55,19 @@ app.post('/attend', function(req, res) {
     });
 });
 
+app.post('/event', function(req, res) {
+    var _event = req.body;
+    _event.eventId = uuid.v4();
+    db.insertEvents(_event, function(err, result) {
+        if (err) {
+            console.log("Failed to add event: " + JSON.stringify(_event) + ", error: " + err);
+            res.status(404).send({success: false});
+        } else {
+            res.status(200).send({success: true});
+        }
+    });      
+});
+
 app.post('/events', function(req, res) {
     var _event = req.body;
     for (var index in _event) {
@@ -80,9 +75,9 @@ app.post('/events', function(req, res) {
         db.insertEvents(_event[index], function(err, result) {
             if (err) {
                 console.log("Failed to add event: " + JSON.stringify(_event[index]) + ", error: " + err);
-                res.status(404).send();
+                res.status(404).send({success: false});
             } else {
-                res.status(200).send();
+                res.status(200).send({success: true});
             }
         });        
     }
@@ -94,9 +89,9 @@ app.post('/register', function(req, res) {
     db.insertUsers(user, function(err, result) {
         if (err) {
             console.log("Failed to register: " + user + ", error: " + err);
-            res.status(404).send();
+            res.status(404).send({success: false});
         } else {
-            res.status(200).send();
+            res.status(200).send({success: true});
         }
     });
 });
