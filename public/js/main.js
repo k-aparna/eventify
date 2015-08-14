@@ -5,7 +5,7 @@ function randomImage() {
 
 function appendRow() {
     var row = $(document.createElement('div'));
-    row.addClass('row top-buffer');
+    row.addClass('row top-buffer event-row');
     $('.container').append(row);
     return row;
 }
@@ -47,6 +47,8 @@ function addEvents(events) {
 }
 
 $(document).ready(function() {
+    $('#createEventBtn').hide()
+
     $.ajax('/events').done(function(data) {
         addEvents(data);
     });
@@ -72,6 +74,7 @@ $(document).ready(function() {
                 $('#registerBtn').hide();
                 $('#signInBtn').hide();
                 toastr.success('Welcome ' + $('#username').val() + '!', '', {timeOut: 1000, positionClass: 'toast-bottom-right'})
+                $('#createEventBtn').show()
             },
             error: function(data) {
                 toastr.error('Invalid login', '', {timeOut: 1000, positionClass: 'toast-bottom-right'})
@@ -129,6 +132,10 @@ $(document).ready(function() {
             success: function(data) {
                 $('#createEventModal').removeClass('in');
                 toastr.success('Event Created!', '', {timeOut: 1000, positionClass: 'toast-bottom-right'});
+                $.ajax('/events').done(function(data) {
+                    $('.event-row').remove();
+                    addEvents(data);
+                });
             }, 
             error: function(data) {
                 toastr.error('Unable to add event', '', {timeOut: 1000, positionClass: 'toast-bottom-right'});
