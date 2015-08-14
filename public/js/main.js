@@ -1,9 +1,6 @@
-var imgTargets = ["nature", "animals", "business", "sports", "technics", "transport"]
-
 function randomImage() {
-    var index = (Math.ceil(Math.random() * 100)) % (imgTargets.length);
-    console.log(index);
-    return "http://lorempixel.com/300/200/" + imgTargets[index];
+    var index = (Math.ceil(Math.random() * 100)) % 15;
+    return "images/" + index + '.jpg';
 }
 
 function appendRow() {
@@ -14,10 +11,10 @@ function appendRow() {
 }
 
 function createEvent(_event) {
-    return $('<div class="col-md-4">')
+    return $('<div class="col-md-3">')
             .append(
                 $('<div class="event-card">')
-                    .append($('<img class="img-responsive" src="' + _event.img + '">'))
+                    .append($('<img class="img-responsive" src="' + randomImage() + '">'))
                     .append(
                         $('<div class="event-details text-uppercase pull-center">')
                             .append(
@@ -40,7 +37,7 @@ function createEvent(_event) {
 function addEvents(events) {
     var currentRow = null;
     for (var i = 0; i < events.length; i++) {
-        if (i % 3 == 0) {
+        if (i % 4 == 0) {
             currentRow = appendRow(i);
         }
         var _event = events[i];

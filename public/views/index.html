@@ -50,7 +50,7 @@
       .event-card {
         box-shadow: 0 2px 20px 0 rgba(0,0,0,0.37);
         display: inline-block;
-        margin-left: 25px;
+        margin-left: 10px;
         margin-bottom: 10px;
       }
       #createEventBtn {
@@ -84,6 +84,13 @@
         bottom: 10%;
       }
 
+      .rotate {
+        -ms-transform: rotate(-5deg); /* IE 9 */
+        -webkit-transform: rotate(-5deg); /* Chrome, Safari, Opera */
+        transform: rotate(-5deg);
+        margin-bottom: 20px
+      }
+
     </style>
 	</head>
 	<body>
@@ -96,7 +103,7 @@
           <div class="navbar-header">
             <!-- brand image! -->
             <a class="navbar-brand" href="#">
-              <img alt="Brand" class="img-responsive" src="https://eventbrite-s3.s3.amazonaws.com/marketing/landingpages/shared/images/eb-logo.png">
+              <img alt="Brand" class="img-responsive rotate" src="images/eventify.png">
             </a>
           </div>
 
@@ -194,31 +201,9 @@
       <div class="row">
         <div class="col-md-12">
           <img class="img-responsive"
-                src="http://lorempixel.com/1280/500/">
+                src="images/banner.jpg">
         </div>
       </div>
-
-      <!-- events -->
-      <div class="row top-buffer" style="display: none;">
-
-        <!-- event 1 -->
-        <div class="col-md-4">
-          <div class="event-card">
-            <img class="img-responsive" src="http://lorempixel.com/300/200/nightlife">
-            <div class="event-details text-uppercase pull-center">
-              <h5>SAT, AUG 29 12:00 PM</h5>
-              <h4 class="zero-top">Bootstrap meetup 2015</h4>
-              <hr />
-              <h6 class="event-address">
-                <a href="#">
-                    <span class="pull-right glyphicon glyphicon-plus-sign" style="font-size: 2em; overflow: hidden"></span>
-                </a>
-                38850 Farwell Dr, Fremont, CA 94536
-              </h6>
-            </div>
-          </div>
-        </div>
-      </div> <!-- row ends here -->
     </div> <!-- container ends here -->
     <button id="createEventBtn" class="btn btn-default btn-lg" data-toggle="modal" data-target="#createEventModal">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
